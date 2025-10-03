@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="https://static.readdy.ai/static/e.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="text-2xl font-['Pacifico'] text-primary">logo</div>
+                    <h1 class="text-xl font-semibold text-gray-900">EduManage Academy</h1>
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Students</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Teachers</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Classes</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Attendance</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Grades</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Events</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Reports</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="bg-gray-100 border-none rounded-lg px-4 py-2 pl-10 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center">
+                            <i class="ri-search-line text-gray-400 text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <i class="ri-notification-line text-gray-600 ri-lg"></i>
+                    </div>
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <i class="ri-user-line text-white text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative bg-gradient-to-r from-primary to-secondary text-white overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20school%20campus%20with%20diverse%20students%20engaging%20in%20various%20educational%20activities%2C%20bright%20classroom%20environments%2C%20technology%20integration%2C%20collaborative%20learning%20spaces%2C%20vibrant%20academic%20atmosphere%2C%20professional%20education%20photography%2C%20clean%20contemporary%20architecture%2C%20natural%20lighting%2C%20inspiring%20educational%20setting&width=1920&height=600&seq=hero001&orientation=landscape'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/80"></div>
+        <div class="relative w-full px-6 py-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl">
+                    <h2 class="text-5xl font-bold mb-6 leading-tight">Welcome to EduManage</h2>
+                    <p class="text-xl mb-8 opacity-90">Transforming Education Through Technology</p>
+                    <p class="text-lg mb-10 opacity-80">Streamline your school operations with our comprehensive management platform designed for modern educational institutions.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-white text-primary px-8 py-3 !rounded-button font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">Get Started</button>
+                        <button class="border-2 border-white text-white px-8 py-3 !rounded-button font-semibold hover:bg-white hover:text-primary transition-colors whitespace-nowrap">Watch Demo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats Dashboard -->
+    <section class="px-6 py-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm mb-1">Total Students</p>
+                            <p class="text-3xl font-bold text-gray-900">2,847</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-user-line text-blue-600 ri-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-arrow-up-line text-green-500 text-sm"></i>
+                        </div>
+                        <span class="text-green-500 text-sm ml-1">+12% from last month</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm mb-1">Active Teachers</p>
+                            <p class="text-3xl font-bold text-gray-900">156</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-group-line text-green-600 ri-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-arrow-up-line text-green-500 text-sm"></i>
+                        </div>
+                        <span class="text-green-500 text-sm ml-1">+5% from last month</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm mb-1">Ongoing Classes</p>
+                            <p class="text-3xl font-bold text-gray-900">89</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-calendar-line text-purple-600 ri-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-arrow-up-line text-green-500 text-sm"></i>
+                        </div>
+                        <span class="text-green-500 text-sm ml-1">+8% from last month</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm mb-1">School Events</p>
+                            <p class="text-3xl font-bold text-gray-900">24</p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-calendar-event-line text-orange-600 ri-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-arrow-up-line text-green-500 text-sm"></i>
+                        </div>
+                        <span class="text-green-500 text-sm ml-1">+3 this week</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="px-6 pb-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column - Recent Activities -->
+                <div class="bg-white rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Recent Activities</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="ri-user-add-line text-blue-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900">New student Emma Johnson enrolled in Grade 10</p>
+                                <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="ri-file-text-line text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900">Mathematics test results updated for Grade 9A</p>
+                                <p class="text-xs text-gray-500 mt-1">4 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="ri-notification-line text-purple-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900">Parent-teacher meeting scheduled for next week</p>
+                                <p class="text-xs text-gray-500 mt-1">6 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="ri-calendar-line text-orange-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900">Science fair event added to school calendar</p>
+                                <p class="text-xs text-gray-500 mt-1">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Column - Calendar & Schedule -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Calendar</h3>
+                        <div class="grid grid-cols-7 gap-1 mb-4">
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Sun</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Mon</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Tue</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Wed</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Thu</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Fri</div>
+                            <div class="text-center text-xs font-medium text-gray-500 py-2">Sat</div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1">
+                            <div class="text-center py-2 text-sm text-gray-400">29</div>
+                            <div class="text-center py-2 text-sm text-gray-400">30</div>
+                            <div class="text-center py-2 text-sm text-gray-900">1</div>
+                            <div class="text-center py-2 text-sm text-gray-900">2</div>
+                            <div class="text-center py-2 text-sm bg-primary text-white rounded">3</div>
+                            <div class="text-center py-2 text-sm text-gray-900">4</div>
+                            <div class="text-center py-2 text-sm text-gray-900">5</div>
+                            <div class="text-center py-2 text-sm text-gray-900">6</div>
+                            <div class="text-center py-2 text-sm text-gray-900">7</div>
+                            <div class="text-center py-2 text-sm text-gray-900">8</div>
+                            <div class="text-center py-2 text-sm text-gray-900">9</div>
+                            <div class="text-center py-2 text-sm text-gray-900">10</div>
+                            <div class="text-center py-2 text-sm text-gray-900">11</div>
+                            <div class="text-center py-2 text-sm text-gray-900">12</div>
+                            <div class="text-center py-2 text-sm text-gray-900">13</div>
+                            <div class="text-center py-2 text-sm text-gray-900">14</div>
+                            <div class="text-center py-2 text-sm bg-green-100 text-green-800 rounded">15</div>
+                            <div class="text-center py-2 text-sm text-gray-900">16</div>
+                            <div class="text-center py-2 text-sm text-gray-900">17</div>
+                            <div class="text-center py-2 text-sm text-gray-900">18</div>
+                            <div class="text-center py-2 text-sm text-gray-900">19</div>
+                            <div class="text-center py-2 text-sm bg-orange-100 text-orange-800 rounded">20</div>
+                            <div class="text-center py-2 text-sm text-gray-900">21</div>
+                            <div class="text-center py-2 text-sm text-gray-900">22</div>
+                            <div class="text-center py-2 text-sm text-gray-900">23</div>
+                            <div class="text-center py-2 text-sm text-gray-900">24</div>
+                            <div class="text-center py-2 text-sm text-gray-900">25</div>
+                            <div class="text-center py-2 text-sm text-gray-900">26</div>
+                            <div class="text-center py-2 text-sm text-gray-900">27</div>
+                            <div class="text-center py-2 text-sm text-gray-900">28</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Today's Schedule</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-l-4 border-primary pl-3">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Mathematics - Grade 9A</p>
+                                    <p class="text-xs text-gray-500">Room 201</p>
+                                </div>
+                                <span class="text-xs text-gray-500">9:00 AM</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-l-4 border-green-500 pl-3">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Physics Lab - Grade 11</p>
+                                    <p class="text-xs text-gray-500">Lab 1</p>
+                                </div>
+                                <span class="text-xs text-gray-500">11:00 AM</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-l-4 border-orange-500 pl-3">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Staff Meeting</p>
+                                    <p class="text-xs text-gray-500">Conference Room</p>
+                                </div>
+                                <span class="text-xs text-gray-500">2:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Quick Actions & Performance -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors !rounded-button whitespace-nowrap">
+                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="ri-user-add-line text-blue-600 text-sm"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Add New Student</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors !rounded-button whitespace-nowrap">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="ri-calendar-line text-green-600 text-sm"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Schedule Meeting</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors !rounded-button whitespace-nowrap">
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i class="ri-notification-line text-purple-600 text-sm"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Send Announcement</span>
+                            </button>
+                            
+                            <button class="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors !rounded-button whitespace-nowrap">
+                                <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                                    <i class="ri-file-text-line text-orange-600 text-sm"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Generate Report</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6">School Performance</h3>
+                        <div id="performanceChart" style="width: 100%; height: 200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Sections -->
+    <section class="px-6 pb-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-sm text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-graduation-cap-line text-blue-600 ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Student Portal</h3>
+                    <p class="text-gray-600 mb-6">Access grades, assignments, and academic progress tracking in one unified dashboard.</p>
+                    <button class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-blue-700 transition-colors whitespace-nowrap">Access Portal</button>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-sm text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-book-line text-green-600 ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Teacher Dashboard</h3>
+                    <p class="text-gray-600 mb-6">Manage classes, grade assignments, and communicate with students and parents effectively.</p>
+                    <button class="bg-green-600 text-white px-6 py-2 !rounded-button hover:bg-green-700 transition-colors whitespace-nowrap">View Dashboard</button>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-sm text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-parent-line text-purple-600 ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Parent Connect</h3>
+                    <p class="text-gray-600 mb-6">Stay updated with your child's progress, attendance, and school communications.</p>
+                    <button class="bg-purple-600 text-white px-6 py-2 !rounded-button hover:bg-purple-700 transition-colors whitespace-nowrap">Connect Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="px-6 py-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div class="text-2xl font-['Pacifico'] text-primary mb-4">logo</div>
+                        <p class="text-gray-400 mb-6">EduManage Academy - Transforming education through innovative technology solutions.</p>
+                        <div class="flex space-x-4">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-facebook-line text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                            </div>
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-twitter-line text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                            </div>
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-linkedin-line text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Dashboard</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Students</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Teachers</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Classes</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Support</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                        <p class="text-gray-400 mb-4">Subscribe to get updates on new features and announcements.</p>
+                        <div class="flex space-x-2">
+                            <input type="email" placeholder="Enter your email" class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <button class="bg-primary text-white px-4 py-2 !rounded-button hover:bg-blue-700 transition-colors whitespace-nowrap">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                    <p class="text-gray-400">&copy; 2025 EduManage Academy. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script id="chart-performance">
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartDom = document.getElementById('performanceChart');
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                animation: false,
+                grid: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                    axisLine: { show: false },
+                    axisTick: { show: false },
+                    axisLabel: {
+                        color: '#6b7280',
+                        fontSize: 12
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: { show: false },
+                    axisTick: { show: false },
+                    axisLabel: {
+                        color: '#6b7280',
+                        fontSize: 12
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#f3f4f6'
+                        }
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: '#e5e7eb',
+                    textStyle: {
+                        color: '#1f2937'
+                    }
+                },
+                series: [
+                    {
+                        name: 'Attendance',
+                        type: 'line',
+                        data: [92, 88, 95, 89, 94],
+                        smooth: true,
+                        lineStyle: {
+                            color: 'rgba(87, 181, 231, 1)',
+                            width: 3
+                        },
+                        itemStyle: {
+                            color: 'rgba(87, 181, 231, 1)'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: 'rgba(87, 181, 231, 0.1)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(87, 181, 231, 0.01)'
+                                }]
+                            }
+                        },
+                        symbol: 'none'
+                    },
+                    {
+                        name: 'Performance',
+                        type: 'line',
+                        data: [85, 91, 87, 93, 90],
+                        smooth: true,
+                        lineStyle: {
+                            color: 'rgba(141, 211, 199, 1)',
+                            width: 3
+                        },
+                        itemStyle: {
+                            color: 'rgba(141, 211, 199, 1)'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: 'rgba(141, 211, 199, 0.1)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(141, 211, 199, 0.01)'
+                                }]
+                            }
+                        },
+                        symbol: 'none'
+                    }
+                ]
+            };
+            
+            myChart.setOption(option);
+        });
+    </script>
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+        api_host: 'https://us.i.posthog.com',
+        autocapture: false,
+        capture_pageview: false,
+        capture_pageleave: false,
+        capture_performance: {
+            web_vitals: false,
+        },
+        rageclick: false,
+    })
+    window.shareKey = 'pS6IQkcQrHbD2vDK8l21fA';
+    window.host = 'readdy.ai';
+</script>
+</body>
+</html>
